@@ -30,7 +30,7 @@ Proposes should directly address one of the following:
 - Support or contradict [problem statement], giving specific research or evidence 
 - Discuss a solution for one or more of the issues raised in [problem statement]
 
-If a proposal includes a solution to a given problem, they should include the transition mechanism from the current state to the proposed state and the economic drivers which would move the community from the current state to the proposed state. Solutions, in other words, cannot be purely technical; they must take operational and economic drivers into perspective. Research proposals should be concrete, giving the specific data to be used, the way in which the data will be collected, how the data will be handled and processed, and the desired result of the study.
+If a proposal includes a solution to a given problem, they should include the transition mechanism from the current state to the proposed state and the economic drivers which would move the community from the current state to the proposed state. Solutions, in other words, can be research or ideas in formation, but must not be purely technical; they must take operational and economic drivers into perspective. Research proposals should be concrete, giving the specific data to be used, the way in which the data will be collected, how the data will be handled and processed, and the desired result of the study.
 
-In short, this workshop is eliciting conversations around practical, deployable solutions, as well as opening a discussion on [problem statement].
+In short, this workshop is eliciting conversations around practical solutions--even if they are not fully designed or developed--with a path to deployment, as well as opening a discussion on [problem statement].
 
