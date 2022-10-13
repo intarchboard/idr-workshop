@@ -15,12 +15,18 @@ First, richer internal connectivity options were added to support much larger op
 Second, additions to the suite of internet protocols (primarily IPv6) resulted in BGP being modified to support address families.
 Third, increasing requirements to steer traffic along specific paths to increase quality of experience (traffic engineering) and provisioning of virtual Ethernet overlays led to a series of extensions supporting MPLS, and more recently SR.
 
-More recently large-scale data-center operators began using BGP as their primary protocol—using BGP both as an overlay and underlay, or as an IGP—because of BGP’s scale characteristics. This has led to increasing requirements in segmentation and virtual Ethernet overlay services and data center fabric operation.
+More recently, many other capabilities have been added to BGP to support BGP enabled services, which might colloquially be called "BESS use cases," including:
 
-Specifically, BGP is now being modified to support automatic peer discovery, to support next hops without an underlying IGP, etc. In some deployments, communities, iBGP versus eBGP behavior and “magic AS numbers” are used to prevent loops when routes are leaked (or redistributed) between virtual topologies. 
+- Large scale overlay layer 2 overlay support, such as eVPN
+- BGP based multicast
+- Pseudowires
+- Link state operation using BGP flooding
 
-These additional features don not just add to the current capabilities of BGP; they run counter to the original design of the protocol. Arguably, more and more basic architectural properties of the protocol are being disabled, abused or circumvented to "get the job done whatever the job is declared to be". 
-The result is a protocol of increasingly byzantine complexity full of non-orthogonal "knobs" that partially contradict each other and hence more and more difficult to understand, more and more difficult to implement, and ultimately difficult to manage. The sections below consider some of the problems with the current generation of BGP. 
+Beyond these, current proposals designed to create modes of operation and features more suited to using BGP as an interior gateway protocol, especially for large-scale data center fabrics, are either being considered or adopted. Some implementations have also used characteristics of BGP's operation, such as "magic AS numbers," to implement features on data center fabrics.
+
+These additional features all support well-known use cases, and so add value to the protocol. However, these extensions also add complexity to the protocol, and often run counter to the original intent of BGP--an exterior gateway protocol designed to carry policy-focused routing between independent network operators across the public Internet. The result is a protocol of increasingly byzantine complexity full of non-orthogonal "knobs" that partially contradict each other and hence more and more difficult to understand, more and more difficult to implement, and ultimately difficult to manage. 
+
+The sections below consider some of the problems with the current generation of BGP (some of which are related to the inclusion of deeper support for services, others of which are a result of BGP's basic design).
 
 BGP Code Complexity
 
@@ -32,12 +38,15 @@ A codebase of this size, combined with the many hundreds (thousands) of use case
 BGP Deployment Complexity
 
 The documentation for any implementation of BGP can run to thousands of pages; operators must know what they are trying to get done to ask the right questions before they can even begin to search documentation for information on how to accomplish a given task. It is impossible, at this point, for an individual engineer to learn BGP in any meaningful way from documentation alone.
+
 BGP deployment is conceivably completely different for each broad class of use cases. Inter-provider communication requires a different configuration model than BGP as an IGP in a data center underlay, or BGP supporting an overlay of virtual topologies, or providing cloud connectivity, or emulating L2 substrate, etc. Very few engineers have wide enough experience to encounter BGP in all these situations; saying a particular person “knows BGP” is no longer a useful description of the operator’s knowledge. 
+
 Using a default configuration applicable to a class of use cases in another can cause network outages.
 
 BGP is Unstable
 
 It has been widely documented that the Default-Free Zone (DFZ), or the global Internet routing table does not converge. See, for instance, Geoff Huston’s measurements in this post: https://www.potaroo.net/ispcol/2022-01/bgpupd2021.html.
+
 There is a widespread impression that the constant state of convergence in the DFZ is directly attributable to the global number of routes. There is no reason, however, that a routing system with a lot of routes should not converge. Rather, the instability observed in the global routing table is because the rate of change in the global routing table is faster than BGP converges, combined with several BGP-specific policy interactions as well as non uniform tie-breaking across different configurations and implementations. 
 
 BGP converges for reasons other than changes in reachability or path, adding to the frequency of convergence events in the DFZ. For instance, BGP sends updates when a policy changes, even if the policy change does not impact the path to the reachable destination. Further there are situations where BGP can build a “wedgie,” as described in RFC4264, and can also persistently oscillate between multiple paths, as described in RFC7964.
@@ -63,10 +72,3 @@ Other problems with securing BGP include:
 -	Any security system designed to operate on a per-update basis is likely to open many new attack surfaces in the form of denial of service attacks 
 -	Any security system that increases the time required to process an update will necessarily slow convergence, increasing the overall instability of the system
 -	Any security system that increases development and deployment complexity will likely increase the number of failures induced by human error, and make the full scope of BGP deployment and implementation readily testable
-
-
-
-
-
-
-
