@@ -11,7 +11,12 @@ Towards these ends, the IAB is holding a technical workshop to bring researchers
 
 Goal
 
-The goal of this workshop is to facilitate a community discussion, bringing a diverse array of resources to bear on classifying, understanding, and resolving the problems outlined in [problem statement]. The goal is NOT to decide on how to replace BGP, when to replace BGP, or BGP's replacement. This workshop is the beginning of the conversation, rather than the end.
+The goal of this workshop is to facilitate a community discussion, bringing a diverse array of resources to bear on classifying, understanding, and resolving the problems outlined in [problem statement], potentially including:
+
+- replacing BGP across all use cases
+- determining two different protocols should be used for IDR and services, and understanding how to divide these use cases among multiple protocols
+
+The goal is NOT to decide on how to replace BGP, when to replace BGP, or BGP's replacement. This workshop is the beginning of the conversation, rather than the end.
 
 Format
 
