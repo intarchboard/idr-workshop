@@ -14,7 +14,7 @@ First, richer internal connectivity options were added to support much larger op
 
 Second, additions to the suite of internet protocols (primarily IPv6 and MPLS) resulted in BGP being modified to support address families.
 
-Third, increasing requirements to steer traffic along specific paths to increase quality of experience (traffic engineering) and provisioning of virtual Ethernet overlays led to a series of extensions supporting MPLS, and more recently SR.
+Third, increasing requirements to steer traffic along specific paths to increase quality of experience (traffic engineering) and provisioning of virtual Ethernet overlays led to a series of extensions supporting MPLS and SR.
 
 More recently, many other capabilities have been added to BGP to support BGP enabled services, which might colloquially be called "BESS use cases," including:
 
