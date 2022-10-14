@@ -12,7 +12,8 @@ In some original BGP deploymnents (for a short period of time), externally learn
 
 First, richer internal connectivity options were added to support much larger operator networks, and then to move towards a more clearly divided underlay/overlay model. The underlay, or IGP, would be used to provide reachability to next hops (or infrastructure routes), while the overlay, BGP, would carry routing information for destinations outside the local autonomous system (or customer routes). This initially included confederations, which were later replaced by route reflectors (and, for internet exchanges, route servers).
 
-Second, additions to the suite of internet protocols (primarily IPv6) resulted in BGP being modified to support address families.
+Second, additions to the suite of internet protocols (primarily IPv6 and MPLS) resulted in BGP being modified to support address families.
+
 Third, increasing requirements to steer traffic along specific paths to increase quality of experience (traffic engineering) and provisioning of virtual Ethernet overlays led to a series of extensions supporting MPLS, and more recently SR.
 
 More recently, many other capabilities have been added to BGP to support BGP enabled services, which might colloquially be called "BESS use cases," including:
@@ -24,7 +25,9 @@ More recently, many other capabilities have been added to BGP to support BGP ena
 
 Beyond these, current proposals designed to create modes of operation and features more suited to using BGP as an interior gateway protocol, especially for large-scale data center fabrics, are either being considered or adopted. Some implementations have also used characteristics of BGP's operation, such as "magic AS numbers," to implement features on data center fabrics.
 
-These additional features all support well-known use cases, and so add value to the protocol. However, these extensions also add complexity to the protocol, and often run counter to the original intent of BGP--an exterior gateway protocol designed to carry policy-focused routing between independent network operators across the public Internet. The result is a protocol of increasingly byzantine complexity full of non-orthogonal "knobs" that partially contradict each other and hence more and more difficult to understand, more and more difficult to implement, and ultimately difficult to manage. 
+These additional features all support well-known use cases, and so add value to the protocol. There is no doubt that each of these use cases is valuable.
+
+However, these extensions also add complexity to the protocol, and often run counter to the original intent of BGP--an exterior gateway protocol designed to carry policy-focused routing between independent network operators across the public Internet. The result is a protocol of increasingly byzantine complexity full of non-orthogonal "knobs" that partially contradict each other and hence more and more difficult to understand, more and more difficult to implement, and ultimately difficult to manage. 
 
 The sections below consider some of the problems with the current generation of BGP (some of which are related to the inclusion of deeper support for services, others of which are a result of BGP's basic design).
 
@@ -53,7 +56,7 @@ BGP converges for reasons other than changes in reachability or path, adding to 
 
 (see also https://rule11.tech/bgp-persistent-oscillation/ for an explanation of persistent oscillations in BGP). 
 
-This is largely the legacy of BGP breaking the total ordering of paths by introduction of MED. This trend continues with more and more "optional" path tie-breakers introduced by RFCs as well as vendors in their implementations. 
+This is largely the legacy of BGP breaking the total ordering of paths by introduction of MED. This trend continues with increasing numbers of "optional" path tie-breakers introduced by RFCs and implementations. 
 
 While various conditions cause BGP to converge more often than would normally be required, BGP is also notoriously slow to converge. A general rule of thumb is to subtract the length of the current best AS path from the length of the next possible best path (in the case of a withdraw, the maximum AS path length in the network), and multiply this number by the Minimum Route Advertisement Interval. However, this is not necessarily BGP's fault as a protocol, a diffused computation suffers inherently from processing delays at every node. Also, to enhance stability at scale, it is often necessary to use "state compression" or hysteresis in advertisements. 
 
@@ -71,4 +74,4 @@ Other problems with securing BGP include:
 
 -	Any security system designed to operate on a per-update basis is likely to open many new attack surfaces in the form of denial of service attacks 
 -	Any security system that increases the time required to process an update will necessarily slow convergence, increasing the overall instability of the system
--	Any security system that increases development and deployment complexity will likely increase the number of failures induced by human error, and make the full scope of BGP deployment and implementation readily testable
+-	Any security system that increases development and deployment complexity will likely increase the number of failures induced by human error, and make the full scope of BGP deployment and implementation impossible to readily test
