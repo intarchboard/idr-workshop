@@ -13,10 +13,10 @@ Goal
 
 The goal of this workshop is to facilitate a community discussion, bringing a diverse array of resources to bear on classifying, understanding, and resolving the problems outlined in [problem statement], potentially including:
 
-- replacing BGP across all use cases
+- determining how to incementally modify BGP to support all use cases in simpler ways
 - determining two different protocols should be used for IDR and services, and understanding how to divide these use cases among multiple protocols
 
-The goal is NOT to decide on how to replace BGP, when to replace BGP, or BGP's replacement. This workshop is the beginning of the conversation, rather than the end.
+It is always tempting to simply "replace BGP," but this (probably) isn't a realistic goal. Instead, this workshop is intended to begin a conversation about how to think about the problems facing BGP, and propose research directions for resolving these issues.
 
 Format
 
